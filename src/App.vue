@@ -14,14 +14,28 @@
         name: "App",
         data () {
             return {
-                logo: Logo
+                logo: Logo,
             }
+        },
+        mounted() {
+            console.log(this)
+        },
+        computed: {
         }
     }
 </script>
 
+<style module lang="less">
+    :local .font-mini{
+        font-size: 12px;
+    }
+    .font-small{
+        font-size: 20px;
+    }
+</style>
 <style scoped lang="less">
     .app{
+        background-color: pink;
         img{
             width: 100px;
             height: 100px;

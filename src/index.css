@@ -5,3 +5,11 @@ body,html,ul,li{
 body {
     background-color: #fff;
 }
+
+.font-small{
+    font-size: 12px;
+}
+
+:local (.font-small) {
+    font-size: 10px;
+}
