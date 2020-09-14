@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Home from '../pages/home.vue';
+import About from '../pages/about.vue';
+import Profile from '../pages/profile.vue';
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -13,17 +17,17 @@ export default new VueRouter({
         {
             path: '/home',
             name: 'home',
-            component: () => import('../pages/home.vue')
+            component: Home
         },
         {
             path: '/about',
             name: 'about',
-            component: () => import('../pages/about.vue')
+            component: About
         },
         {
             path: '/profile',
             name: 'profile',
-            component: () => import('../pages/profile.vue')
+            component: Profile
         }
     ]
 })

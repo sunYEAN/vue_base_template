@@ -1,13 +1,18 @@
 const path = require('path');
-const resolve = (...args) => path.resolve(__dirname, ...args);
 const webpack = require('webpack');
 const dllConfig = require('./webpack.dll.config');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const resolve = (...args) => path.resolve(__dirname, ...args);
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const HappyPack = require('happypack');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -147,4 +152,12 @@ if (isDev) {
     });
 }
 
-module.exports = config;
+// 打包速度
+const smp = new SpeedMeasurePlugin({
+    outputFormat: 'function'
+});
+
+// 多进程打包
+config.plugins.push(new HappyPack({loaders: ['babel-loader']}));
+config.stats = !isDev && 'none';
+module.exports = isDev ? config : smp.wrap(config);
