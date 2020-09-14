@@ -1,5 +1,7 @@
 import axios from 'axios';
+import {createMessageBox} from '../components/MessageBox';
 
+const infoBox = createMessageBox('info');
 const STATUS = {
     SUCCESS: 200,
     NOT_FOUND: 404,
@@ -10,10 +12,6 @@ const request = axios.create({
    baseURL: '/'
 });
 
-
-function showToast (message) {
-  alert(message);
-}
 
 request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -33,7 +31,7 @@ request.interceptors.response.use(function (response) {
 
     return new Promise((resolve, reject) => {
         function _reject (err) {
-            showToast(err.message);
+            infoBox.show(err.message);
             reject(err);
         }
 
@@ -55,7 +53,7 @@ request.interceptors.response.use(function (response) {
     });
 
 }, function (err) {
-    showToast(err.message);
+    infoBox.show(err.message);
     return Promise.reject(err);
 });
 

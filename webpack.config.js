@@ -54,6 +54,19 @@ const config = {
                 ],
             },
             {
+                test: /\.json$/,
+                exclude: /node_modules/,
+                type: 'javascript/auto',
+                loader: 'json-loader'
+            },
+            {
+                test: /\.(woff)|(svg)|(eot)|(ttf)$/,
+                loader: 'url-loader',
+                options: {
+                    outputPath: 'font'
+                }
+            },
+            {
                 test: /\.(css|less)$/,
                 oneOf:  [
                     {
@@ -63,18 +76,12 @@ const config = {
                                 loader: MiniCssExtractPlugin.loader,
                                 options: {
                                     hmr: isDev,
+                                    publicPath: './',
                                     reloadAll: true,
                                 }
                             },
                             {
                                 loader: 'css-loader',
-                                // options: {
-                                //     esModule: true,
-                                //     modules: {
-                                //         namedExport: true,
-                                //         localIdentName: '[local]_[contenthash:5]',
-                                //     },
-                                // },
                             },
                             'less-loader'
                         ]
@@ -96,14 +103,15 @@ const config = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 use: [
                     {
-                        loader: "file-loader",
+                        loader: "url-loader",
                         options: {
+                            limit: 10000,
                             name() {
                                 if (isDev) {
-                                    return 'imgs/[path].[name].[ext]'
+                                    return 'imgs/[name].[ext]'
                                 }
                                 return 'imgs/[contenthash:8].[ext]'
                             }

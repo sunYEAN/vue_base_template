@@ -1,0 +1,28 @@
+.toast_wrap{
+    top: 50%;
+    left: 50%;
+    display: flex;
+    position: fixed;
+    transform: translate(-50%, -60%);
+    align-items: center;
+    justify-content: center;
+
+}
+
+.fade-enter-active,.fade-leave-active{
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1);
+    transition: 0.2s ease-in-out;
+}
+.fade-enter,.fade-leave-to{
+    transform: translate(-50%, -60%) scale(1.5);
+    opacity: 0;
+}
+.fade-out-enter-active,.fade-out-leave-active{
+    opacity: 1;
+    transition: 0.2s ease-in-out;
+}
+.fade-out-enter,.fade-out-leave-to{
+    opacity: 0;
+}
+

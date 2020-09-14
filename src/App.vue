@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <img :src="logo" alt="">
+        <img :src="logo" @click="handle" alt="">
         <router-link to="/">首页</router-link>
         <router-link to="/about">关于</router-link>
         <router-link to="/profile">我的</router-link>
@@ -17,8 +17,13 @@
                 logo: Logo,
             }
         },
+        methods: {
+            handle () {
+                this.$info.show('123131');
+            }
+        },
         mounted() {
-            console.log(this)
+            this.$loading.show();
         },
         computed: {
         }
