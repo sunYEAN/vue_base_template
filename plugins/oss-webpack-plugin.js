@@ -1,5 +1,7 @@
 const url = require('url');
 const AliOss = require('ali-oss');
+const {readdirSync} = require('fs');
+const {resolve} = require('path');
 
 
 class OssWebpackPlugin {
@@ -30,10 +32,9 @@ class OssWebpackPlugin {
     check_version () {}
 
     apply (compiler) {
-        compiler.hooks.compilation.tap('OssWebpackPlugin', (compilation, callback) => {
-
-            console.log(123);
-
+        compiler.hooks.emit.tapAsync('OssWebpackPlugin', (compilation, callback) => {
+            console.log(compilation.assets)
+            callback();
         });
     }
 }

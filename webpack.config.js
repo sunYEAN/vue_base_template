@@ -153,6 +153,10 @@ if (isDev) {
             ]
         }
     });
+
+    Object.assign(config.plugins, [
+        new OssWebpackPlugin(),
+    ])
 }
 
 // 打包速度
