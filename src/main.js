@@ -1,5 +1,5 @@
 import 'lib-flexible/flexible';
-import './index.css';
+import 'reset.css';
 import Vue from 'vue';
 import App from './App';
 import store from './store';

@@ -1,10 +1,12 @@
 import "./messageBox.css";
 import Info from './info';
 import Loading from './loading';
+import Error from './error';
 import Vue from 'vue';
 
 const Components = {
     info: Info,
+    error: Error,
     loading: Loading
 };
 
@@ -56,6 +58,7 @@ function createMessageBox(type) {
 
 function install(Vue) {
     Vue.prototype.$info = createMessageBox('info');
+    Vue.prototype.$error = createMessageBox('error');
     Vue.prototype.$loading = createMessageBox('loading');
 }
 

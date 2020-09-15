@@ -25,8 +25,8 @@
             },
         },
         mounted() {
-            this.fn();
-            this.$loading.show();
+            this.$loading.show('waiting...');
+            // this.$error.show('用户未登录用户未登录用户未登录');
         },
         computed: {
         }

@@ -19,6 +19,6 @@
         padding: 6px 10px;
         max-width: 60%;
         border-radius: 10px;
-        background-color: rgba(0,0,0,0.8);
+        background-color: rgba(0,0,0,0.7);
     }
 </style>
