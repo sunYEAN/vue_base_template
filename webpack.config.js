@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const dllConfig = require('./webpack.dll.config');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -64,7 +65,7 @@ const config = {
             },
             {
                 test: /\.(css|less)$/,
-                oneOf:  [
+                oneOf: [
                     {
                         resourceQuery: /module/,
                         use: [
@@ -106,16 +107,12 @@ const config = {
                         loader: "url-loader",
                         options: {
                             limit: 10000,
-                            name() {
-                                if (isDev) {
-                                    return 'imgs/[name].[ext]'
-                                }
-                                return 'imgs/[contenthash:8].[ext]'
-                            }
+                            esModule: false,
+                            name: `imgs/[${isDev ? 'name' : 'contenthash:8'}].[ext]`
                         }
-                    }
+                    },
                 ]
-            }
+            },
         ]
     },
     resolve: {
@@ -136,6 +133,14 @@ const config = {
         // 将dll文件添加到 html 中
         new AddAssetHtmlPlugin({
             filepath: resolve('./dll/*.dll.js'),
+        }),
+
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: 'src/static',
+                to: 'static',
+                context: resolve()
+            }]
         })
     ],
     performance: {

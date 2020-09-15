@@ -1,5 +1,6 @@
 <template>
     <div class="app">
+        <img src="/static/logo.png" alt="">
         <router-link to="/">首页</router-link>
         <router-link to="/about">关于</router-link>
         <router-link to="/profile">我的</router-link>
@@ -8,14 +9,11 @@
 </template>
 
 <script>
-    import Logo from './images/logo.png';
-
 
     export default {
         name: "App",
         data () {
             return {
-                logo: Logo,
             }
         },
         methods: {
