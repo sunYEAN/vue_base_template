@@ -1,6 +1,5 @@
 <template>
     <div class="app">
-        <img :src="logo" @click="handle" alt="">
         <router-link to="/">首页</router-link>
         <router-link to="/about">关于</router-link>
         <router-link to="/profile">我的</router-link>
@@ -20,8 +19,6 @@
             }
         },
         methods: {
-            handle () {
-            },
         },
         mounted() {
         },
@@ -40,7 +37,6 @@
 </style>
 <style scoped lang="less">
     .app{
-        background-color: pink;
         img{
             width: 100px;
             height: 100px;

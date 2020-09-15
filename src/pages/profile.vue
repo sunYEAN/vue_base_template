@@ -12,6 +12,5 @@
     .profile{
         width: 100vw;
         height: 100vh;
-        background-color: #2b7eed;
     }
 </style>
