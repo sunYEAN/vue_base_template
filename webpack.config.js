@@ -100,6 +100,9 @@ const config = {
         extensions: ['.vue', '.js', '.css']
     },
     plugins: [
+
+        new HappyPack({loaders: ['babel-loader']}),
+
         new VueLoaderPlugin(),
 
         new HTMLWebpackPlugin({
@@ -107,15 +110,18 @@ const config = {
             app: packageJson.app,
             env: process.env.NODE_ENV
         }),
+
         new MiniCssExtractPlugin({
             filename: isDev ? 'css/[name].css' : 'css/[name].[contenthash:8].css',
             chunkFilename: isDev ? 'css/[id].css' : 'css/[id].[contenthash:8].css'
         }),
+
         ...createDllReferencePlugin(resolve('./dll')),
 
         // 将dll文件添加到 html 中
         new AddAssetHtmlPlugin({
             filepath: resolve('./dll/*.dll.js'),
+            outputPath: 'js'
         }),
 
         new CopyWebpackPlugin({
@@ -144,16 +150,15 @@ if (isDev) {
             minimizer: [
                 // 压缩css文件
                 new OptimizeCSSAssetsPlugin()
-            ],
+            ]
         }
     });
 }
 
 // 打包速度
-const smp = new SpeedMeasurePlugin({
-    outputFormat: 'function'
-});
+// smp 导致 AddAssetHtmlPlugin 失败
+// const smp = new SpeedMeasurePlugin({
+//     outputFormat: 'function'
+// });
 
-// 多进程打包
-config.plugins.push(new HappyPack({loaders: ['babel-loader']}));
-module.exports = isDev ? config : smp.wrap(config);
+module.exports = config;
