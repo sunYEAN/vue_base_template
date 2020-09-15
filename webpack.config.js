@@ -25,16 +25,12 @@ const createDllReferencePlugin = (path) => {
     })
 };
 
-
 const config = {
     mode: isDev ? 'development' : 'production',
     entry: resolve('./src/main.js'),
     output: {
         path: resolve('./dist'),
         filename: isDev ? 'js/main.js' : "js/main.[chunkhash:8].js"
-    },
-    resolve: {
-        extensions: ['.vue', '.js', '.css']
     },
     module: {
         rules: [
@@ -80,9 +76,8 @@ const config = {
                                     reloadAll: true,
                                 }
                             },
-                            {
-                                loader: 'css-loader',
-                            },
+                            'css-loader',
+                            'postcss-loader',
                             'less-loader'
                         ]
 
@@ -93,10 +88,12 @@ const config = {
                                 loader: MiniCssExtractPlugin.loader,
                                 options: {
                                     hmr: isDev,
+                                    publicPath: './',
                                     reloadAll: true,
                                 }
                             },
                             'css-loader',
+                            'postcss-loader',
                             'less-loader'
                         ]
                     }
@@ -121,8 +118,8 @@ const config = {
             }
         ]
     },
-    performance: {
-        hints: 'warning'
+    resolve: {
+        extensions: ['.vue', '.js', '.css']
     },
     plugins: [
         new VueLoaderPlugin(),
@@ -140,7 +137,11 @@ const config = {
         new AddAssetHtmlPlugin({
             filepath: resolve('./dll/*.dll.js'),
         })
-    ]
+    ],
+    performance: {
+        hints: 'warning'
+    },
+
 };
 
 // 开发环境
@@ -167,5 +168,4 @@ const smp = new SpeedMeasurePlugin({
 
 // 多进程打包
 config.plugins.push(new HappyPack({loaders: ['babel-loader']}));
-config.stats = !isDev && 'none';
 module.exports = isDev ? config : smp.wrap(config);

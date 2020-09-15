@@ -10,6 +10,8 @@
 
 <script>
     import Logo from './images/logo.png';
+
+
     export default {
         name: "App",
         data () {
@@ -20,9 +22,10 @@
         methods: {
             handle () {
                 this.$info.show('123131');
-            }
+            },
         },
         mounted() {
+            this.fn();
             this.$loading.show();
         },
         computed: {

@@ -1,3 +1,4 @@
+import 'lib-flexible/flexible';
 import './index.css';
 import Vue from 'vue';
 import App from './App';
