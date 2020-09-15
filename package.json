@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "app": {
+    "title": "demo",
+    "author": "nandou",
+    "keywords": "关键词",
+    "description": "描述",
     "dll": {
-      "vendor_vue": [
+      "vendor": [
         "vue",
         "vuex",
+        "axios",
         "vue-router"
-      ],
-      "vendor_util": [
-        "axios"
       ]
     }
   },
@@ -34,6 +36,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
     "add-asset-html-webpack-plugin": "^3.1.3",
+    "ali-oss": "^6.10.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",

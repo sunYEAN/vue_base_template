@@ -5,9 +5,22 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>hello</title>
+    <meta name="keywords" content="<%= htmlWebpackPlugin.options.app.keywords %>">
+    <meta name="description" content="<%= htmlWebpackPlugin.options.app.description %>">
+    <title><%= htmlWebpackPlugin.options.app.title %></title>
 </head>
 <body>
 <div id="app">hello</div>
+
+<% if(htmlWebpackPlugin.options.env === 'development'){ %>
+<script>
+    let script = document.createElement('script');
+    document.body.appendChild(script);
+    script.src = 'https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js';
+    script.onload = function () {
+        new VConsole();
+    };
+</script>
+<% } else { %><% } %>
 </body>
 </html>

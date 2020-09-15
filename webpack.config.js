@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const dllConfig = require('./webpack.dll.config');
+const packageJson = require('./package');
+const OssWebpackPlugin = require('./plugins/oss-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
@@ -65,39 +67,18 @@ const config = {
             },
             {
                 test: /\.(css|less)$/,
-                oneOf: [
+                use: [
                     {
-                        resourceQuery: /module/,
-                        use: [
-                            {
-                                loader: MiniCssExtractPlugin.loader,
-                                options: {
-                                    hmr: isDev,
-                                    publicPath: './',
-                                    reloadAll: true,
-                                }
-                            },
-                            'css-loader',
-                            'postcss-loader',
-                            'less-loader'
-                        ]
-
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: isDev,
+                            publicPath: './',
+                            reloadAll: true,
+                        }
                     },
-                    {
-                        use: [
-                            {
-                                loader: MiniCssExtractPlugin.loader,
-                                options: {
-                                    hmr: isDev,
-                                    publicPath: './',
-                                    reloadAll: true,
-                                }
-                            },
-                            'css-loader',
-                            'postcss-loader',
-                            'less-loader'
-                        ]
-                    }
+                    'css-loader',
+                    'postcss-loader',
+                    'less-loader'
                 ]
             },
             {
@@ -120,9 +101,11 @@ const config = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        // new CleanWebpackPlugin(),
+
         new HTMLWebpackPlugin({
-            template: resolve('./index.html')
+            template: resolve('./index.html'),
+            app: packageJson.app,
+            env: process.env.NODE_ENV
         }),
         new MiniCssExtractPlugin({
             filename: isDev ? 'css/[name].css' : 'css/[name].[contenthash:8].css',
