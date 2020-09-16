@@ -9,6 +9,11 @@
 </template>
 
 <script>
+    import {preload} from './utils'
+
+    preload([
+
+    ]);
 
     export default {
         name: "App",
