@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV === 'deve') {
+    const VConsole = require('vconsole');
+    new VConsole();
+    import('vconsole').then(res => {
+        new res.default();
+    })
+}
 import 'lib-flexible/flexible';
 import 'reset.css';
 import Vue from 'vue';
