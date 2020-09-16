@@ -5,7 +5,9 @@ const packageJson = require('../package');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isDev = process.env.NODE_ENV === 'development';
 const resolve = (...args) => path.resolve(__dirname, '../', ...args);
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -62,7 +64,12 @@ const config = {
             {
                 test: /\.(css|less)$/,
                 use: [
-                    'style-loader',
+                    isDev ? 'style-loader' : {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: './',
+                        }
+                    },
                     'css-loader',
                     'postcss-loader',
                     'less-loader'
@@ -76,7 +83,7 @@ const config = {
                         options: {
                             limit: 10000,
                             esModule: false,
-                            name: `imgs/[name].[ext]`
+                            name: `imgs/[${isDev ? 'name' : 'contenthash:6'}].[ext]`
                         }
                     },
                 ]

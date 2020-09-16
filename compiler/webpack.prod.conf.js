@@ -1,46 +1,16 @@
 const path = require('path');
 const Base = require('./webpack.base.conf');
 const {merge} = require('webpack-merge');
+const resolve = (...args) => path.resolve(__dirname, '../', ...args);
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(Base, {
     mode: 'production',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: resolve('dist'),
         publicPath: './',
         filename: 'js/main.[chunkhash:8].js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(css|less)$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: './',
-                        }
-                    },
-                    'css-loader',
-                    'postcss-loader',
-                    'less-loader'
-                ]
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg)$/i,
-                use: [
-                    {
-                        loader: "url-loader",
-                        options: {
-                            limit: 10000,
-                            esModule: false,
-                            name: `imgs/[contenthash:6].[ext]`
-                        }
-                    },
-                ]
-            },
-        ]
     },
     plugins: [
         new MiniCssExtractPlugin({
