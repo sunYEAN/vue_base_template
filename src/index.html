@@ -10,18 +10,26 @@
     <title><%= htmlWebpackPlugin.options.app.title %></title>
 </head>
 <body>
+
 <div id="app">hello</div>
 
+<% if(htmlWebpackPlugin.options.env === 'development') { %>
 <script>
+    console.log('231');
+    var script = document.createElement('script');
+    script.src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js";
+    document.body.appendChild(script);
+    script.onload = function () {
+        window.VConsole && new VConsole();
+    }
+</script>
+<% } else { %>
+
+<script>
+    console.log('正式环境')
 </script>
 
-<!--<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.3.4/vconsole.min.js"/>-->
-<!--<script>-->
-    <!--window.VConsole && new VConsole();-->
-<!--</script>-->
+<% } %>
 
-<!--${if(htmlWebpackPlugin.options.env=='production') {-->
-    <!---->
-<!--}}-->
 </body>
 </html>

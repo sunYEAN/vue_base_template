@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "app": {
+    "port": 8080,
     "title": "demo",
     "author": "nandou",
     "keywords": "关键词",
@@ -28,9 +29,9 @@
     "and_uc > 1"
   ],
   "scripts": {
-    "dll": "webpack --config ./webpack.dll.config.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js"
+    "dll": "webpack --config ./compiler/webpack.dll.config.js",
+    "dev": "cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config ./compiler/webpack.dev.conf.js",
+    "build": "cross-env NODE_ENV=production webpack --config ./compiler/webpack.prod.conf.js"
   },
   "keywords": [],
   "author": "",
@@ -62,7 +63,8 @@
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.4"
   },
   "dependencies": {
     "@babel/core": "^7.11.6",

@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const resolve = (p) => path.resolve(__dirname, p);
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const packageJSon = require('./package');
+const packageJSon = require('../package');
 
 const config = {
     mode: 'production',
