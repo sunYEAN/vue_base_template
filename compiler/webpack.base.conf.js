@@ -6,17 +6,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
-const resolve = (...args) => path.resolve(__dirname, ...args);
+const resolve = (...args) => path.resolve(__dirname, '../', ...args);
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 // const OssWebpackPlugin = require('./plugins/oss-webpack-plugin');
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const HappyPack = require('happypack');
-
-const isDev = process.env.NODE_ENV === 'development';
 
 const createDllReferencePlugin = (path) => {
     return Object.keys(dllConfig.entry).map(key => {
@@ -30,8 +27,7 @@ const config = {
     entry: resolve('src', 'main.js'),
     output: {
         path: resolve('dist'),
-        publicPath: "./",
-        filename: isDev ? 'js/main.js' : "js/main.[chunkhash:8].js"
+        filename: 'js/main.js'
     },
     module: {
         rules: [
@@ -66,14 +62,7 @@ const config = {
             {
                 test: /\.(css|less)$/,
                 use: [
-                    isDev ? 'style-loader' : {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: isDev,
-                            publicPath: './',
-                            reloadAll: true,
-                        }
-                    },
+                    'style-loader',
                     'css-loader',
                     'postcss-loader',
                     'less-loader'
@@ -87,7 +76,7 @@ const config = {
                         options: {
                             limit: 10000,
                             esModule: false,
-                            name: `imgs/[${isDev ? 'name' : 'contenthash:8'}].[ext]`
+                            name: `imgs/[name].[ext]`
                         }
                     },
                 ]

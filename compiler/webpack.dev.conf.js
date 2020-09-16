@@ -1,9 +1,9 @@
 const path = require('path');
 const Base = require('./webpack.base.conf');
-const Merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const packageJson = require('../package');
 
-module.exports = Merge(Base, {
+module.exports = merge(Base, {
     mode: 'development',
     devServer: {
         contentBase: path.resolve(__dirname, './dist'),
