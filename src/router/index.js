@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     mode: 'hash',
+    base: 'http_cache',
     routes: [
         {
             path: '/',

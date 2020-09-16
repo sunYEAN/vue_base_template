@@ -2,21 +2,20 @@ const path = require('path');
 const webpack = require('webpack');
 const dllConfig = require('./webpack.dll.config');
 const packageJson = require('./package');
-const OssWebpackPlugin = require('./plugins/oss-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const resolve = (...args) => path.resolve(__dirname, ...args);
+const resolve = (p) => path.resolve(__dirname, p);
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const OssWebpackPlugin = require('./plugins/oss-webpack-plugin');
+// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const HappyPack = require('happypack');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -33,6 +32,7 @@ const config = {
     entry: resolve('./src/main.js'),
     output: {
         path: resolve('./dist'),
+        publicPath: "./",
         filename: isDev ? 'js/main.js' : "js/main.[chunkhash:8].js"
     },
     module: {
@@ -106,7 +106,7 @@ const config = {
         new VueLoaderPlugin(),
 
         new HTMLWebpackPlugin({
-            template: resolve('./index.html'),
+            template: resolve('./src/index.html'),
             app: packageJson.app,
             env: process.env.NODE_ENV
         }),
@@ -121,7 +121,8 @@ const config = {
         // 将dll文件添加到 html 中
         new AddAssetHtmlPlugin({
             filepath: resolve('./dll/*.dll.js'),
-            outputPath: 'js'
+            outputPath: 'js',
+            publicPath: "./js"
         }),
 
         new CopyWebpackPlugin({
@@ -130,7 +131,8 @@ const config = {
                 to: 'static',
                 context: resolve()
             }]
-        })
+        }),
+
     ],
     performance: {
         hints: 'warning'
@@ -142,7 +144,8 @@ const config = {
 if (isDev) {
     config.devServer = {
         host: '0.0.0.0',
-        port: 8080
+        port: 8080,
+        contentBase: resolve('./dist')
     }
 } else {
     Object.assign(config, {
@@ -154,9 +157,9 @@ if (isDev) {
         }
     });
 
-    Object.assign(config.plugins, [
-        new OssWebpackPlugin(),
-    ])
+    // Object.assign(config.plugins, [
+    //     new OssWebpackPlugin(),
+    // ])
 }
 
 // 打包速度
