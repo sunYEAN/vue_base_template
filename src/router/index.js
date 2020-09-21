@@ -8,8 +8,8 @@ import Profile from '../pages/profile.vue';
 Vue.use(VueRouter);
 
 export default new VueRouter({
-    mode: 'hash',
-    base: 'http_cache',
+    mode: 'history',
+    base: process.env.NODE_ENV === 'development' ? '' : 'http_cache',
     routes: [
         {
             path: '/',

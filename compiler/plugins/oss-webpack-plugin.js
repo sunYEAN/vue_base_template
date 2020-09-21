@@ -19,9 +19,9 @@ class OssWebpackPlugin {
         };
         Object.assign(this.options, options);
         this.client = new AliOss({
-            region: 'oss-cn-beijing',
-            accessKeyId: 'LTAI4G9jnmJGDyWaAskXmmYq',
-            accessKeySecret: 'W9Tji761P4QEmSLmZCspqMl9whpngn',
+            region: 'oss-xx-beijing',
+            accessKeyId: 'xxx',
+            accessKeySecret: 'xxx',
             bucket: 'wtutu'
         });
 
